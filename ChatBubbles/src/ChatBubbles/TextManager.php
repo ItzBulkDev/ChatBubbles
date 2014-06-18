@@ -9,7 +9,6 @@ class TextManager extends PluginTask{
     private $p;
     public function onRun($tick){
         $this->revert();
-
     }
     public function revert(){
         $this->p->setNameTag($this->p->getName());
