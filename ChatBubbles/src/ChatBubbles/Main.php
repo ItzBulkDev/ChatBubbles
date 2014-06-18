@@ -17,6 +17,12 @@ class Main extends PluginBase implements Listener{
         $this->getLogger()->info("[ChatBubbles] ChatBubbles Loaded!");
     }
     
+   /**
+    * @param PlayerChatEvent $event
+    *
+    * @priority       NORMAL
+    * @ignoreCanceled false
+    */
     public function onChat(PlayerChatEvent $event){
         $player = $event->getPlayer();
         $message = $event->getMessage();
@@ -24,6 +30,7 @@ class Main extends PluginBase implements Listener{
         $this->text[$player->getName()] = new TextManager($this);
         $this->text[$player->getName()]->createBubble($player, $message);
         $this->getServer()->getScheduler()->scheduleDelayedTask($this->text[$player->getName()],$this->getConfig()->get("ShowMessageTime"));
+        $event->setCancelled(true);
     }
     
     public function onDisable(){
