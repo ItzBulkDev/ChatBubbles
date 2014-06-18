@@ -7,8 +7,6 @@ use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerChatEvent;
 use pocketmine\Player;
 
-use ChatBubbles\TextManager;
-
 class Main extends PluginBase implements Listener{
     public $text;
     public function onEnable(){
@@ -26,13 +24,16 @@ class Main extends PluginBase implements Listener{
     public function onChat(PlayerChatEvent $event){
         $player = $event->getPlayer();
         $message = $event->getMessage();
-        if(isset($this->text[$player->getName()])) if($this->text[$player->getName()]->c !== true) $this->text[$player->getName()]->remove();
-        $this->text[$player->getName()] = new TextManager($this);
-        $this->text[$player->getName()]->createBubble($player, $message);
-        $this->getServer()->getScheduler()->scheduleDelayedTask($this->text[$player->getName()],$this->getConfig()->get("ShowMessageTime"));
+        if(isset($this->text[$player->getName()])){
+            $this->getServer()->getScheduler()->cancelTask($this->text[$player->getName()][1]);
+            unset($this->text[$player->getName()]);
+        }
+        $t = new TextManager($this);
+        $t->createBubble($player, $message);
+        $h = ($this->getServer()->getScheduler()->scheduleDelayedTask($t,$this->getConfig()->get("ShowMessageTime")));
+        $this->text[$player->getName()] = array($t,$h);
         $event->setCancelled(true);
     }
-    
     public function onDisable(){
         $this->getLogger()->info("[ChatBubbles] ChatBubbles Unloaded!");
     }

@@ -6,28 +6,14 @@ use pocketmine\scheduler\PluginTask;
 use pocketmine\Player;
 
 class TextManager extends PluginTask{
-    private $c, $p;
-    
+    private $p;
     public function onRun($tick){
-        $this->remove();
         $this->revert();
-        $this->c = true;
     }
-    
-    public function remove(){
-        $playername = $this->p->getName();
-        $playername->setNameTag(" ");
-        //This should just remove the text from the Name Tag
-    }
-    
     public function revert(){
-        $playername = $this->p->getName();
-        $playername->setNameTag($player);
-        //This should work
+        $this->p->setNameTag($this->p->getName());
     }
-    
     public function createBubble($player, $message){
-        $this->c = false;
         $this->p = $player;
         $this->m = $message;
         $this->p->setNameTag($this->m);
