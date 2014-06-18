@@ -11,14 +11,21 @@ class TextManager extends PluginTask{
         $this->c = true;
     }
     public function remove(){
-        //Remove bubble
+        $playername = $this->p->getName();
+        $playername->setNameTag(" ");
+        //This should just remove the text from the Name Tag
     }
     public function revert(){
-        //Revert to username $this->p->getName()
+        $playername = $this->p->getName();
+        $playername->setNameTag($player);
+        //This should work
     }
     public function createBubble($player, $message){
         $this->c = false;
         $this->p = $player;
-        //Create text bubble
+        $this->p->setNameTag($message);
+        //This will not seperate the message into lines and may look ugly
+        //I will have to try to seperate the messages into lines later
     }
 }
+?>
