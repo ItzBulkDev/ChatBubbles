@@ -7,8 +7,6 @@ use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerChatEvent;
 use pocketmine\Player;
 
-use ChatBubbles\TextManager;
-
 class Main extends PluginBase implements Listener{
     public $text;
     public function onEnable(){
@@ -31,7 +29,6 @@ class Main extends PluginBase implements Listener{
         $this->getServer()->getScheduler()->scheduleDelayedTask($this->text[$player->getName()],$this->getConfig()->get("ShowMessageTime"));
         $event->setCancelled(true);
     }
-    
     public function onDisable(){
         $this->getLogger()->info("[ChatBubbles] ChatBubbles Unloaded!");
     }
