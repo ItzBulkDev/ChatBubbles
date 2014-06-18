@@ -25,6 +25,7 @@ class Main extends PluginBase implements Listener{
         $this->text[$player->getName()]->createBubble($player, $message);
         $this->getServer()->getScheduler()->scheduleDelayedTask($this->text[$player->getName()],$this->getConfig()->get("ShowMessageTime"));
     }
+    
     public function onDisable(){
         $this->getLogger()->info("[ChatBubbles] ChatBubbles Unloaded!");
     }
