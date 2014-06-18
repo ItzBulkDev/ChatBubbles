@@ -26,7 +26,6 @@ class Main extends PluginBase implements Listener{
     public function onChat(PlayerChatEvent $event){
         $player = $event->getPlayer();
         $message = $event->getMessage();
-        if(isset($this->text[$player->getName()])) if($this->text[$player->getName()]->c !== true) $this->text[$player->getName()]->remove();
         $this->text[$player->getName()] = new TextManager($this);
         $this->text[$player->getName()]->createBubble($player, $message);
         $this->getServer()->getScheduler()->scheduleDelayedTask($this->text[$player->getName()],$this->getConfig()->get("ShowMessageTime"));
