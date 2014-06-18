@@ -4,27 +4,28 @@ namespace ChatBubbles;
 
 use pocketmine\plugin\PluginBase;
 use pocketmine\event\Listener;
-//use pocketmine\event\player\PlayerChatEvent; ??
+use pocketmine\event\player\PlayerChatEvent;
 use pocketmine\Player;
 
-class Main extends PluginBase implements Listener{
+use ChatBubbles\TextManager;
 
+class Main extends PluginBase implements Listener{
+    public $text;
     public function onEnable(){
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
+        $this->text = [];
         $this->getLogger()->info("[ChatBubbles] ChatBubbles Loaded!");
     }
     
     public function onChat(PlayerChatEvent $event){
         $player = $event->getPlayer();
         $message = $event->getMessage();
-        
-        //TODO Get rid of players username, temporarily replace name tag with message
+        if(isset($this->text[$player->getName()])) if($this->text[$player->getName()]->c !== true) $this->text[$player->getName()]->remove();
+        $this->text[$player->getName()] = new TextManager($this);
+        $this->text[$player->getName()]->createBubble($player, $message);
+        $this->getServer()->getScheduler()->scheduleDelayedTask($this->text[$player->getName()],$this->getConfig()->get("ShowMessageTime"));
     }
-    
     public function onDisable(){
         $this->getLogger()->info("[ChatBubbles] ChatBubbles Unloaded!");
     }
-
 }
-
-?>
