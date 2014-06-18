@@ -23,7 +23,8 @@ class TextManager extends PluginTask{
     public function createBubble($player, $message){
         $this->c = false;
         $this->p = $player;
-        $this->p->setNameTag($message);
+        $this->m = $message;
+        $this->p->setNameTag($this->m);
         //This will not seperate the message into lines and may look ugly
         //I will have to try to seperate the messages into lines later
     }
