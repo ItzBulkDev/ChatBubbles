@@ -11,12 +11,12 @@ class TextManager extends PluginTask{
         $this->revert();
     }
     public function revert(){
-        $this->p->setNameTag($this->p->getName());
+        $this->p->setNameTag($this->p->getDisplayName());
     }
     public function createBubble($player, $message){
         $this->p = $player;
         $this->m = $message;
-        $this->p->setNameTag($this->p->getName() . ":\n\n" . $this->m);
+        $this->p->setNameTag($this->p->getDisplayName() . ":\n\n" . $this->m);
         //This will not seperate the message into lines and may look ugly
         //I will have to try to seperate the messages into lines later
     }
