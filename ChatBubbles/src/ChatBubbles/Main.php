@@ -24,15 +24,17 @@ class Main extends PluginBase implements Listener{
     public function onChat(PlayerChatEvent $event){
         $player = $event->getPlayer();
         $message = $event->getMessage();
-        if(isset($this->text[$player->getName()])){
-            $this->getServer()->getScheduler()->cancelTask($this->text[$player->getName()][1]);
-            unset($this->text[$player->getName()]);
+        if($player->hasPermission("chatbubbles.show")){
+            if(isset($this->text[$player->getName()])){
+                $this->getServer()->getScheduler()->cancelTask($this->text[$player->getName()][1]);
+                unset($this->text[$player->getName()]);
+            }
+            $t = new TextManager($this);
+            $t->createBubble($player, $message);
+            $h = ($this->getServer()->getScheduler()->scheduleDelayedTask($t,$this->getConfig()->get("ShowMessageTime")));
+            $this->text[$player->getName()] = array($t,$h);
+            $event->setCancelled(true);
         }
-        $t = new TextManager($this);
-        $t->createBubble($player, $message);
-        $h = ($this->getServer()->getScheduler()->scheduleDelayedTask($t,$this->getConfig()->get("ShowMessageTime")));
-        $this->text[$player->getName()] = array($t,$h);
-        $event->setCancelled(true);
     }
     public function onDisable(){
         $this->getLogger()->info("[ChatBubbles] ChatBubbles Unloaded!");
