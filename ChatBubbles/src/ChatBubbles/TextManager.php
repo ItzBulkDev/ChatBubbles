@@ -17,7 +17,7 @@ class TextManager extends PluginTask{
     
     public function createBubble($player, $message){
         $this->p = $player;
-        $this->m = $message;
+        $this->m = wordwrap($message, 25, "\n");
         $this->p->setNameTag("<" . $this->p->getDisplayName() . ">\n" . $this->m);
     }
 }
