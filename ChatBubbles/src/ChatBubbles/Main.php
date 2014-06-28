@@ -39,7 +39,7 @@ class Main extends PluginBase implements Listener{
     public function onDisable(){
         foreach($this->getServer()->getOnlinePlayers() as $p){
             $t = new TextManager($this);
-            $t->revert($p);
+            $this->getServer()->getScheduler()->scheduleDelayedTask($t,"1");
         }
         $this->getLogger()->info("[ChatBubbles] ChatBubbles Unloaded!");
     }
