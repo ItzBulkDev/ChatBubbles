@@ -1,4 +1,5 @@
 #Main Configuration File For ChatBubbles
 ShowMessageTime: 15
-MaxCharactersPerLine: 16
 #The time the message is shown is in seconds
+MaxCharactersPerLine: 16
+#After how many characters does a message get split to a new line
