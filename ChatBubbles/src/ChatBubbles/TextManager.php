@@ -9,8 +9,8 @@ class TextManager extends PluginTask{
     protected $plugin;
     private $p;
     public function __construct(Main $plugin){
-		$this->plugin = $plugin;
-	}
+        $this->plugin = $plugin;
+    }
 	
     public function onRun($tick){
         $this->revert();
