@@ -6,7 +6,12 @@ use pocketmine\scheduler\PluginTask;
 use pocketmine\Player;
 
 class TextManager extends PluginTask{
+    protected $plugin;
     private $p;
+    public function __construct(Main $plugin){
+		$this->plugin = $plugin;
+	}
+	
     public function onRun($tick){
         $this->revert();
     }
@@ -17,7 +22,7 @@ class TextManager extends PluginTask{
     
     public function createBubble($player, $message){
         $this->p = $player;
-        $this->m = wordwrap($message, 25, "\n");
+        $this->m = wordwrap($message, $this->plugin->getConfig()->get("MaxCharactersPerLine"), "\n");
         $this->p->setNameTag("<" . $this->p->getDisplayName() . ">\n" . $this->m);
     }
 }
