@@ -12,7 +12,7 @@ class Main extends PluginBase implements Listener{
     public function onEnable(){
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
         $this->text = [];
-        $this->getLogger()->info("[ChatBubbles] ChatBubbles Loaded!");
+        $this->getLogger()->info("ChatBubbles Loaded!");
     }
     
    /**
@@ -41,6 +41,6 @@ class Main extends PluginBase implements Listener{
             $t = new TextManager($this);
             $this->getServer()->getScheduler()->scheduleDelayedTask($t,"1");
         }
-        $this->getLogger()->info("[ChatBubbles] ChatBubbles Unloaded!");
+        $this->getLogger()->info("ChatBubbles Unloaded!");
     }
 }
