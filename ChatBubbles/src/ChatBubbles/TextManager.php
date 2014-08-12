@@ -9,6 +9,7 @@ class TextManager extends PluginTask{
     protected $plugin;
     private $p;
     public function __construct(Main $plugin){
+    	parent::__construct($plugin);
         $this->plugin = $plugin;
     }
 	
